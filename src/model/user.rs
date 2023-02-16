@@ -8,7 +8,7 @@ pub struct User {
     pub username: String,
     pub email: String,
     pub password_hash: String,
-    pub password_salt: String,
+    pub password_salt: String, // TODO: remove this field from code and databse
     pub bio: ArcStr,
     pub image_link: String,
     pub created_at: DateTime<Utc>,

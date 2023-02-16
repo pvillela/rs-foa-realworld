@@ -49,7 +49,7 @@ impl Article {
             id: 0,
             author_id: author.id,
             title: title.to_owned(),
-            slug: util::slug(title),
+            slug: util::slug(title), // make sure this is unique index in database
             description: ArcStr::from(description),
             body: ArcStr::from(body),
             favorites_count: 0,
@@ -59,6 +59,7 @@ impl Article {
         }
     }
 
+    /// Updates the receiver but does not change the slug when the title changes.
     pub fn update(&mut self, src: ArticlePatch) {
         if let Some(title) = src.title {
             self.title = title;
