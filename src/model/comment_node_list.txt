@@ -1,0 +1,132 @@
+src.go:7:1:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) %!t(token.Pos=173) %!t(*ast.Ident=&{181 model <nil>}) [%!t(*ast.GenDecl=&{<nil> 188 75 0 [0xc0000a0270] 0}) %!t(*ast.GenDecl=&{<nil> 203 84 0 [0xc0000b21c0] 0}) %!t(*ast.FuncDecl=&{<nil> <nil> 0xc0000c22c0 0xc0000c2540 0xc0000a0420})] %!t(*ast.Scope=&{<nil> map[Comment:0xc0000ba050 Comment_Create:0xc0000ba370]}) [%!t(*ast.ImportSpec=&{<nil> <nil> 0xc0000c2080 <nil> 0})] [%!t(*ast.Ident=&{236 uint <nil>}) %!t(*ast.Ident=&{252 uint <nil>}) %!t(*ast.Ident=&{268 uint <nil>}) %!t(*ast.Ident=&{285 string <nil>}) %!t(*ast.Ident=&{303 time <nil>}) %!t(*ast.Ident=&{324 time <nil>}) %!t(*ast.Ident=&{369 uint <nil>}) %!t(*ast.Ident=&{385 uint <nil>}) %!t(*ast.Ident=&{398 string <nil>})] []}-----
+
+src.go:7:9:	***** TYPE-----&{%!t(token.Pos=181) %!t(string=model) %!t(*ast.Object=<nil>)}-----
+
+src.go:9:1:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) %!t(token.Pos=188) %!t(token.Token=75) %!t(token.Pos=0) [%!t(*ast.ImportSpec=&{<nil> <nil> 0xc0000c2080 <nil> 0})] %!t(token.Pos=0)}-----
+
+src.go:9:8:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) %!t(*ast.Ident=<nil>) %!t(*ast.BasicLit=&{195 9 "time"}) %!t(*ast.CommentGroup=<nil>) %!t(token.Pos=0)}-----
+
+src.go:9:8:	***** TYPE-----&{%!t(token.Pos=195) %!t(token.Token=9) %!t(string="time")}-----
+
+src.go:11:1:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) %!t(token.Pos=203) %!t(token.Token=84) %!t(token.Pos=0) [%!t(*ast.TypeSpec=&{<nil> 0xc0000c20a0 <nil> 0 0xc0000a8060 <nil>})] %!t(token.Pos=0)}-----
+
+src.go:11:6:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) %!t(*ast.Ident=&{208 Comment 0xc0000ba050}) %!t(*ast.FieldList=<nil>) %!t(token.Pos=0) %!t(*ast.StructType=&{216 0xc0000a02a0 false}) %!t(*ast.CommentGroup=<nil>)}-----
+
+src.go:11:6:	***** TYPE-----&{%!t(token.Pos=208) %!t(string=Comment) %!t(*ast.Object=&{3 Comment 0xc0000b21c0 <nil> <nil>})}-----
+
+src.go:11:14:	***** TYPE-----&{%!t(token.Pos=216) %!t(*ast.FieldList=&{223 [0xc0000b2200 0xc0000b2240 0xc0000b2280 0xc0000b22c0 0xc0000b2300 0xc0000b2380] 334}) false}-----
+
+src.go:11:21:	***** TYPE-----&{%!t(token.Pos=223) [%!t(*ast.Field=&{<nil> [0xc0000c20c0] 0xc0000c20e0 <nil> <nil>}) %!t(*ast.Field=&{<nil> [0xc0000c2100] 0xc0000c2120 <nil> <nil>}) %!t(*ast.Field=&{<nil> [0xc0000c2140] 0xc0000c2160 <nil> <nil>}) %!t(*ast.Field=&{<nil> [0xc0000c21a0] 0xc0000a8018 <nil> <nil>}) %!t(*ast.Field=&{<nil> [0xc0000c21e0] 0xc0000a8030 <nil> <nil>}) %!t(*ast.Field=&{<nil> [0xc0000c2240] 0xc0000a8048 <nil> <nil>})] %!t(token.Pos=334)}-----
+
+src.go:12:2:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) [%!t(*ast.Ident=&{226 Id 0xc0000ba0a0})] %!t(*ast.Ident=&{236 uint <nil>}) %!t(*ast.BasicLit=<nil>) %!t(*ast.CommentGroup=<nil>)}-----
+
+src.go:12:2:	***** TYPE-----&{%!t(token.Pos=226) %!t(string=Id) %!t(*ast.Object=&{4 Id 0xc0000b2200 <nil> <nil>})}-----
+
+src.go:12:12:	***** TYPE-----&{%!t(token.Pos=236) %!t(string=uint) %!t(*ast.Object=<nil>)}-----
+
+src.go:13:2:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) [%!t(*ast.Ident=&{242 ArticleId 0xc0000ba0f0})] %!t(*ast.Ident=&{252 uint <nil>}) %!t(*ast.BasicLit=<nil>) %!t(*ast.CommentGroup=<nil>)}-----
+
+src.go:13:2:	***** TYPE-----&{%!t(token.Pos=242) %!t(string=ArticleId) %!t(*ast.Object=&{4 ArticleId 0xc0000b2240 <nil> <nil>})}-----
+
+src.go:13:12:	***** TYPE-----&{%!t(token.Pos=252) %!t(string=uint) %!t(*ast.Object=<nil>)}-----
+
+src.go:14:2:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) [%!t(*ast.Ident=&{258 AuthorId 0xc0000ba140})] %!t(*ast.Ident=&{268 uint <nil>}) %!t(*ast.BasicLit=<nil>) %!t(*ast.CommentGroup=<nil>)}-----
+
+src.go:14:2:	***** TYPE-----&{%!t(token.Pos=258) %!t(string=AuthorId) %!t(*ast.Object=&{4 AuthorId 0xc0000b2280 <nil> <nil>})}-----
+
+src.go:14:12:	***** TYPE-----&{%!t(token.Pos=268) %!t(string=uint) %!t(*ast.Object=<nil>)}-----
+
+src.go:15:2:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) [%!t(*ast.Ident=&{274 Body 0xc0000ba190})] %!t(*ast.StarExpr=&{284 0xc0000c21c0}) %!t(*ast.BasicLit=<nil>) %!t(*ast.CommentGroup=<nil>)}-----
+
+src.go:15:2:	***** TYPE-----&{%!t(token.Pos=274) %!t(string=Body) %!t(*ast.Object=&{4 Body 0xc0000b22c0 <nil> <nil>})}-----
+
+src.go:15:12:	***** TYPE-----&{%!t(token.Pos=284) %!t(*ast.Ident=&{285 string <nil>})}-----
+
+src.go:15:13:	***** TYPE-----&{%!t(token.Pos=285) %!t(string=string) %!t(*ast.Object=<nil>)}-----
+
+src.go:16:2:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) [%!t(*ast.Ident=&{293 CreatedAt 0xc0000ba1e0})] %!t(*ast.SelectorExpr=&{0xc0000c2200 0xc0000c2220}) %!t(*ast.BasicLit=<nil>) %!t(*ast.CommentGroup=<nil>)}-----
+
+src.go:16:2:	***** TYPE-----&{%!t(token.Pos=293) %!t(string=CreatedAt) %!t(*ast.Object=&{4 CreatedAt 0xc0000b2300 <nil> <nil>})}-----
+
+src.go:16:12:	***** TYPE-----&{%!t(*ast.Ident=&{303 time <nil>}) %!t(*ast.Ident=&{308 Time <nil>})}-----
+
+src.go:16:12:	***** TYPE-----&{%!t(token.Pos=303) %!t(string=time) %!t(*ast.Object=<nil>)}-----
+
+src.go:16:17:	***** TYPE-----&{%!t(token.Pos=308) %!t(string=Time) %!t(*ast.Object=<nil>)}-----
+
+src.go:17:2:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) [%!t(*ast.Ident=&{314 UpdatedAt 0xc0000ba230})] %!t(*ast.SelectorExpr=&{0xc0000c2260 0xc0000c2280}) %!t(*ast.BasicLit=<nil>) %!t(*ast.CommentGroup=<nil>)}-----
+
+src.go:17:2:	***** TYPE-----&{%!t(token.Pos=314) %!t(string=UpdatedAt) %!t(*ast.Object=&{4 UpdatedAt 0xc0000b2380 <nil> <nil>})}-----
+
+src.go:17:12:	***** TYPE-----&{%!t(*ast.Ident=&{324 time <nil>}) %!t(*ast.Ident=&{329 Time <nil>})}-----
+
+src.go:17:12:	***** TYPE-----&{%!t(token.Pos=324) %!t(string=time) %!t(*ast.Object=<nil>)}-----
+
+src.go:17:17:	***** TYPE-----&{%!t(token.Pos=329) %!t(string=Time) %!t(*ast.Object=<nil>)}-----
+
+src.go:20:1:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) %!t(*ast.FieldList=<nil>) %!t(*ast.Ident=&{342 Comment_Create 0xc0000ba370}) %!t(*ast.FuncType=&{337 <nil> 0xc0000a0300 0xc0000a0330}) %!t(*ast.BlockStmt=&{416 [0xc0000c2520] 560})}-----
+
+src.go:20:6:	***** TYPE-----&{%!t(token.Pos=342) %!t(string=Comment_Create) %!t(*ast.Object=&{5 Comment_Create 0xc0000a0450 <nil> <nil>})}-----
+
+src.go:20:1:	***** TYPE-----&{%!t(token.Pos=337) %!t(*ast.FieldList=<nil>) %!t(*ast.FieldList=&{356 [0xc0000b2400 0xc0000b2440 0xc0000b2480] 406}) %!t(*ast.FieldList=&{0 [0xc0000b24c0] 0})}-----
+
+src.go:20:20:	***** TYPE-----&{%!t(token.Pos=356) [%!t(*ast.Field=&{<nil> [0xc0000c22e0] 0xc0000c2300 <nil> <nil>}) %!t(*ast.Field=&{<nil> [0xc0000c2320] 0xc0000c2340 <nil> <nil>}) %!t(*ast.Field=&{<nil> [0xc0000c2360] 0xc0000a8090 <nil> <nil>})] %!t(token.Pos=406)}-----
+
+src.go:21:2:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) [%!t(*ast.Ident=&{359 articleId 0xc0000ba280})] %!t(*ast.Ident=&{369 uint <nil>}) %!t(*ast.BasicLit=<nil>) %!t(*ast.CommentGroup=<nil>)}-----
+
+src.go:21:2:	***** TYPE-----&{%!t(token.Pos=359) %!t(string=articleId) %!t(*ast.Object=&{4 articleId 0xc0000b2400 <nil> <nil>})}-----
+
+src.go:21:12:	***** TYPE-----&{%!t(token.Pos=369) %!t(string=uint) %!t(*ast.Object=<nil>)}-----
+
+src.go:22:2:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) [%!t(*ast.Ident=&{376 authorId 0xc0000ba2d0})] %!t(*ast.Ident=&{385 uint <nil>}) %!t(*ast.BasicLit=<nil>) %!t(*ast.CommentGroup=<nil>)}-----
+
+src.go:22:2:	***** TYPE-----&{%!t(token.Pos=376) %!t(string=authorId) %!t(*ast.Object=&{4 authorId 0xc0000b2440 <nil> <nil>})}-----
+
+src.go:22:11:	***** TYPE-----&{%!t(token.Pos=385) %!t(string=uint) %!t(*ast.Object=<nil>)}-----
+
+src.go:23:2:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) [%!t(*ast.Ident=&{392 body 0xc0000ba320})] %!t(*ast.StarExpr=&{397 0xc0000c2380}) %!t(*ast.BasicLit=<nil>) %!t(*ast.CommentGroup=<nil>)}-----
+
+src.go:23:2:	***** TYPE-----&{%!t(token.Pos=392) %!t(string=body) %!t(*ast.Object=&{4 body 0xc0000b2480 <nil> <nil>})}-----
+
+src.go:23:7:	***** TYPE-----&{%!t(token.Pos=397) %!t(*ast.Ident=&{398 string <nil>})}-----
+
+src.go:23:8:	***** TYPE-----&{%!t(token.Pos=398) %!t(string=string) %!t(*ast.Object=<nil>)}-----
+
+src.go:24:3:	***** TYPE-----&{%!t(token.Pos=0) [%!t(*ast.Field=&{<nil> [] 0xc0000c23c0 <nil> <nil>})] %!t(token.Pos=0)}-----
+
+src.go:24:3:	***** TYPE-----&{%!t(*ast.CommentGroup=<nil>) [] %!t(*ast.Ident=&{408 Comment 0xc0000ba050}) %!t(*ast.BasicLit=<nil>) %!t(*ast.CommentGroup=<nil>)}-----
+
+src.go:24:3:	***** TYPE-----&{%!t(token.Pos=408) %!t(string=Comment) %!t(*ast.Object=&{3 Comment 0xc0000b21c0 <nil> <nil>})}-----
+
+src.go:24:11:	***** TYPE-----&{%!t(token.Pos=416) [%!t(*ast.ReturnStmt=&{419 [0xc0000b2540]})] %!t(token.Pos=560)}-----
+
+src.go:25:2:	***** TYPE-----&{%!t(token.Pos=419) [%!t(*ast.CompositeLit=&{0xc0000c23e0 433 [0xc0000a0360 0xc0000a0390 0xc0000a03c0 0xc0000a03f0] 558 false})]}-----
+
+src.go:25:9:	***** TYPE-----&{%!t(*ast.Ident=&{426 Comment 0xc0000ba050}) %!t(token.Pos=433) [%!t(*ast.KeyValueExpr=&{0xc0000c2400 439 0xc0000c2420}) %!t(*ast.KeyValueExpr=&{0xc0000c2440 462 0xc0000c2460}) %!t(*ast.KeyValueExpr=&{0xc0000c24a0 485 0xc0000c24c0}) %!t(*ast.KeyValueExpr=&{0xc0000c24e0 504 0xc0000c2500})] %!t(token.Pos=558) false}-----
+
+src.go:25:9:	***** TYPE-----&{%!t(token.Pos=426) %!t(string=Comment) %!t(*ast.Object=&{3 Comment 0xc0000b21c0 <nil> <nil>})}-----
+
+src.go:26:3:	***** TYPE-----&{%!t(*ast.Ident=&{437 Id <nil>}) %!t(token.Pos=439) %!t(*ast.BasicLit=&{448 5 0})}-----
+
+src.go:26:3:	***** TYPE-----&{%!t(token.Pos=437) %!t(string=Id) %!t(*ast.Object=<nil>)}-----
+
+src.go:26:14:	***** TYPE-----&{%!t(token.Pos=448) %!t(token.Token=5) %!t(string=0)}-----
+
+src.go:27:3:	***** TYPE-----&{%!t(*ast.Ident=&{453 ArticleId <nil>}) %!t(token.Pos=462) %!t(*ast.Ident=&{464 articleId 0xc0000ba280})}-----
+
+src.go:27:3:	***** TYPE-----&{%!t(token.Pos=453) %!t(string=ArticleId) %!t(*ast.Object=<nil>)}-----
+
+src.go:27:14:	***** TYPE-----&{%!t(token.Pos=464) %!t(string=articleId) %!t(*ast.Object=&{4 articleId 0xc0000b2400 <nil> <nil>})}-----
+
+src.go:28:3:	***** TYPE-----&{%!t(*ast.Ident=&{477 AuthorId <nil>}) %!t(token.Pos=485) %!t(*ast.Ident=&{488 authorId 0xc0000ba2d0})}-----
+
+src.go:28:3:	***** TYPE-----&{%!t(token.Pos=477) %!t(string=AuthorId) %!t(*ast.Object=<nil>)}-----
+
+src.go:28:14:	***** TYPE-----&{%!t(token.Pos=488) %!t(string=authorId) %!t(*ast.Object=&{4 authorId 0xc0000b2440 <nil> <nil>})}-----
+
+src.go:29:3:	***** TYPE-----&{%!t(*ast.Ident=&{500 Body <nil>}) %!t(token.Pos=504) %!t(*ast.Ident=&{511 body 0xc0000ba320})}-----
+
+src.go:29:3:	***** TYPE-----&{%!t(token.Pos=500) %!t(string=Body) %!t(*ast.Object=<nil>)}-----
+
+src.go:29:14:	***** TYPE-----&{%!t(token.Pos=511) %!t(string=body) %!t(*ast.Object=&{4 body 0xc0000b2480 <nil> <nil>})}-----
+
