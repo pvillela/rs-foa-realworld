@@ -1,5 +1,5 @@
 use crate::model::Comment;
-use anyhow::{anyhow, Error, Result};
+use anyhow::{anyhow, Result};
 
 pub struct CommentAddIn {
     pub slug: String,

@@ -1,4 +1,4 @@
-use anyhow::{anyhow, Error, Result};
+use anyhow::{anyhow, Result};
 
 pub struct CommentDeleteIn {
     pub slug: String,
