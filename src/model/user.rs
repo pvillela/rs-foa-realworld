@@ -64,14 +64,16 @@ impl User {
             self.image_link = image_link;
         }
     }
+}
 
-    pub fn to_profile(self, follows: bool) -> Profile {
-        return Profile {
-            user_id: self.id,
-            username: self.username,
-            bio: self.bio,
-            image: self.image_link,
+impl Profile {
+    pub fn from_user(user: User, follows: bool) -> Profile {
+        Profile {
+            user_id: user.id,
+            username: user.username,
+            bio: user.bio,
+            image: user.image_link,
             following: follows,
-        };
+        }
     }
 }

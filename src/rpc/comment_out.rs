@@ -16,9 +16,11 @@ pub struct CommentsOut {
 
 impl CommentsOut {
     pub fn from_model(comments: Vec<Comment>) -> CommentsOut {
-        comments
-            .into_iter()
-            .map(move |c| CommentOut::from_model(c))
-            .collect()
+        CommentsOut {
+            comments: comments
+                .into_iter()
+                .map(move |c| CommentOut::from_model(c))
+                .collect(),
+        }
     }
 }

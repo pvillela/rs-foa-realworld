@@ -12,13 +12,13 @@ pub struct CommentAddIn0 {
 
 impl CommentAddIn {
     pub fn validate(&self) -> Result<()> {
-        if self.slug == "" || self.comment.body == nil {
+        if self.slug == "" || self.comment.body == "" {
             return Err(anyhow!("slug or body is missing"));
         }
         Ok(())
     }
 
     pub fn to_comment(self, article_id: u64, comment_author_id: u64) -> Comment {
-        Comment::create(article_id, comment_author_id, self.body)
+        Comment::create(article_id, comment_author_id, self.comment.body)
     }
 }

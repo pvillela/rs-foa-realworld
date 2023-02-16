@@ -1,4 +1,4 @@
-use crate::arch::util;
+use crate::arch::util::slug;
 use crate::model::{Profile, User};
 use chrono::{DateTime, Utc};
 
@@ -44,11 +44,12 @@ impl Article {
         body: String,
         tag_list: Vec<String>,
     ) -> Article {
+        let slug = slug(&title);
         Article {
             id: 0,
             author_id: author.id,
             title,
-            slug: util::slug(&title), // make sure this is unique index in database
+            slug, // make sure this is unique index in database
             description: String::from(description),
             body: String::from(body),
             favorites_count: 0,

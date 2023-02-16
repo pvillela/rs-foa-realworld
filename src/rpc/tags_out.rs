@@ -6,6 +6,8 @@ pub struct TagsOut {
 
 impl TagsOut {
     pub fn from_model(tags: Vec<Tag>) -> TagsOut {
-        tags.into_iter().map(move |t| t.name).collect()
+        TagsOut {
+            tags: tags.into_iter().map(move |t| t.name).collect(),
+        }
     }
 }

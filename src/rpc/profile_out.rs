@@ -6,6 +6,8 @@ pub struct ProfileOut {
 
 impl ProfileOut {
     pub fn from_model(user: User, follows: bool) -> ProfileOut {
-        Profile::from_user(user, follows)
+        ProfileOut {
+            profile: Profile::from_user(user, follows),
+        }
     }
 }
