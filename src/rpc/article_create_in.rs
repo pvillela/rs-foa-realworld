@@ -1,4 +1,4 @@
-use crate::model;
+use crate::model::{Article, User};
 use anyhow::{anyhow, Error, Result};
 
 pub struct ArticleCreateIn {
@@ -20,13 +20,13 @@ impl ArticleCreateIn {
         Ok(())
     }
 
-    pub fn to_article(self, author: model::User) -> model::Article {
+    pub fn to_article(self, author: User) -> Article {
         let mut tag_list = Vec::new();
         if let Some(in_tag_list) = self.article.tag_list {
             tag_list = in_tag_list;
         }
 
-        model::Article::create(
+        Article::create(
             author,
             self.article.title,
             self.article.description,
