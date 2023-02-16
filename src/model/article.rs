@@ -1,6 +1,5 @@
 use crate::arch::util;
 use crate::model::{Profile, User};
-use arcstr::ArcStr;
 use chrono::{DateTime, Utc};
 
 pub struct Article {
@@ -8,8 +7,8 @@ pub struct Article {
     pub author_id: u64,
     pub title: String,
     pub slug: String,
-    pub description: ArcStr,
-    pub body: ArcStr,
+    pub description: String,
+    pub body: String,
     pub favorites_count: i64,
     pub tag_list: Vec<String>,
     pub created_at: DateTime<Utc>,
@@ -21,8 +20,8 @@ pub struct ArticlePlus {
     pub slug: String,
     pub author: Profile,
     pub title: String,
-    pub description: ArcStr,
-    pub body: ArcStr,
+    pub description: String,
+    pub body: String,
     pub tag_list: Vec<String>,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
@@ -32,28 +31,28 @@ pub struct ArticlePlus {
 
 pub struct ArticlePatch {
     pub title: Option<String>,
-    pub description: Option<ArcStr>,
-    pub body: Option<ArcStr>,
+    pub description: Option<String>,
+    pub body: Option<String>,
     pub tag_list: Option<Vec<String>>,
 }
 
 impl Article {
     pub fn create(
         author: User,
-        title: &str,
-        description: &str,
-        body: &str,
-        tag_list: &Vec<String>,
+        title: String,
+        description: String,
+        body: String,
+        tag_list: Vec<String>,
     ) -> Article {
         Article {
             id: 0,
             author_id: author.id,
-            title: title.to_owned(),
-            slug: util::slug(title), // make sure this is unique index in database
-            description: ArcStr::from(description),
-            body: ArcStr::from(body),
+            title,
+            slug: util::slug(&title), // make sure this is unique index in database
+            description: String::from(description),
+            body: String::from(body),
             favorites_count: 0,
-            tag_list: tag_list.clone(),
+            tag_list,
             created_at: Utc::now(),
             updated_at: Utc::now(),
         }
@@ -79,10 +78,10 @@ impl Article {
         self.favorites_count += delta;
     }
 
-    pub fn to_article_plus(&self, favorited: bool, author: Profile) -> ArticlePlus {
+    pub fn to_article_plus(self, favorited: bool, author: Profile) -> ArticlePlus {
         return ArticlePlus {
             id: self.id,
-            slug: self.slug.clone(),
+            slug: self.slug,
             author: Profile {
                 user_id: author.user_id,
                 username: author.username,
@@ -90,29 +89,29 @@ impl Article {
                 image: author.image,
                 following: author.following,
             },
-            title: self.title.clone(),
-            description: self.description.clone(),
-            body: self.body.clone(),
-            tag_list: self.tag_list.clone(),
+            title: self.title,
+            description: self.description,
+            body: self.body,
+            tag_list: self.tag_list,
             created_at: self.created_at,
             updated_at: self.updated_at,
-            favorited: favorited,
+            favorited,
             favorites_count: self.favorites_count,
         };
     }
 }
 
 impl ArticlePlus {
-    pub fn to_article(&self) -> Article {
+    pub fn to_article(self) -> Article {
         Article {
             id: self.id,
             author_id: self.author.user_id,
-            title: self.title.to_owned(),
-            slug: self.slug.to_owned(),
-            description: self.description.to_owned(),
-            body: self.body.clone(),
+            title: self.title,
+            slug: self.slug,
+            description: self.description,
+            body: self.body,
             favorites_count: self.favorites_count,
-            tag_list: self.tag_list.clone(),
+            tag_list: self.tag_list,
             created_at: self.created_at,
             updated_at: self.updated_at,
         }

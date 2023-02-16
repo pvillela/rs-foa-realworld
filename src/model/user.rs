@@ -1,4 +1,3 @@
-use arcstr::ArcStr;
 use chrono::{DateTime, Utc};
 
 const PASSWORD_SALT_SIZE: u32 = 16;
@@ -9,7 +8,7 @@ pub struct User {
     pub email: String,
     pub password_hash: String,
     pub password_salt: String, // TODO: remove this field from code and databse
-    pub bio: ArcStr,
+    pub bio: String,
     pub image_link: String,
     pub created_at: DateTime<Utc>,
     pub updated_at: DateTime<Utc>,
@@ -18,7 +17,7 @@ pub struct User {
 pub struct Profile {
     pub user_id: u64,
     pub username: String,
-    pub bio: ArcStr,
+    pub bio: String,
     pub image: String,
     pub following: bool,
 }
@@ -32,16 +31,16 @@ pub struct UserPatch {
 }
 
 impl User {
-    pub fn create(username: &str, email: &str, password: &str) -> User {
+    pub fn create(username: String, email: String, password: String) -> User {
         let password_hash = todo!(); // = crypto.argon_password_hash(password)
         User {
             id: 0,
-            username: username.to_owned(),
+            username: username,
             email: email.to_lowercase(),
             password_hash,
-            password_salt: "".to_owned(),
-            bio: ArcStr::from(""),
-            image_link: "".to_owned(),
+            password_salt: "".to_string(),
+            bio: String::from(""),
+            image_link: "".to_string(),
             created_at: Utc::now(),
             updated_at: Utc::now(),
         }
@@ -59,19 +58,19 @@ impl User {
             self.password_hash = todo!(); //  crypto.argon_password_hash(password + self.password_salt)
         }
         if let Some(bio) = v.bio {
-            self.bio = ArcStr::from(bio);
+            self.bio = String::from(bio);
         }
         if let Some(image_link) = v.image_link {
             self.image_link = image_link;
         }
     }
 
-    pub fn to_profile(user: &User, follows: bool) -> Profile {
+    pub fn to_profile(self, follows: bool) -> Profile {
         return Profile {
-            user_id: user.id,
-            username: user.username.clone(),
-            bio: user.bio.clone(),
-            image: user.image_link.clone(),
+            user_id: self.id,
+            username: self.username,
+            bio: self.bio,
+            image: self.image_link,
             following: follows,
         };
     }
