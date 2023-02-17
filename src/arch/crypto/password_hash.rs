@@ -6,9 +6,9 @@ use argon2::{
 };
 use once_cell::sync::Lazy;
 
-static IS_DEV: bool = true;
+const IS_DEV: bool = true;
 
-static ARGON_PARAMS: Lazy<Params> = Lazy::new(|| {
+static ARGON2: Lazy<Argon2> = Lazy::new(|| {
     let dev_params = Params::new(10 * 1024, 1, 1, Some(Params::DEFAULT_OUTPUT_LEN))
         .expect("Error defining Argon2 params for dev");
     // salt_length:	16,
@@ -19,15 +19,10 @@ static ARGON_PARAMS: Lazy<Params> = Lazy::new(|| {
     // 	salt_length:	8,
     // 	key_length:	8,
 
-    if IS_DEV {
-        dev_params
-    } else {
-        prod_params
-    }
-});
+    let argon_params = if IS_DEV { dev_params } else { prod_params };
 
-static ARGON2: Lazy<Argon2> =
-    Lazy::new(|| Argon2::new(Argon2i, Version::V0x13, ARGON_PARAMS.clone()));
+    Argon2::new(Argon2i, Version::V0x13, argon_params)
+});
 
 pub fn argon_password_hash(password: String) -> Result<String> {
     let salt = SaltString::generate(&mut OsRng);
