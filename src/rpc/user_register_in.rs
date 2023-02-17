@@ -1,4 +1,5 @@
 use crate::model::User;
+use anyhow::Result;
 
 pub struct UserRegisterIn {
     pub user: UserRegisterIn0,
@@ -11,7 +12,7 @@ pub struct UserRegisterIn0 {
 }
 
 impl UserRegisterIn {
-    pub fn to_user(self) -> User {
+    pub fn to_user(self) -> Result<User> {
         User::create(self.user.username, self.user.email, self.user.password)
     }
 }
