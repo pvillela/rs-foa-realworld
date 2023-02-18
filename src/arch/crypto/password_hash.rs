@@ -1,10 +1,13 @@
-use anyhow::{anyhow, Error, Result};
 use argon2::{
-    password_hash::{rand_core::OsRng, PasswordHash, PasswordHasher, PasswordVerifier, SaltString},
+    password_hash::{
+        errors::Error as PhError, rand_core::OsRng, PasswordHash, PasswordHasher, PasswordVerifier,
+        SaltString,
+    },
     Algorithm::Argon2i,
     Argon2, Params, Version,
 };
 use once_cell::sync::Lazy;
+use thiserror::Error;
 
 const IS_DEV: bool = true;
 
@@ -24,18 +27,26 @@ static ARGON2: Lazy<Argon2> = Lazy::new(|| {
     Argon2::new(Argon2i, Version::V0x13, argon_params)
 });
 
-pub fn argon_password_hash(password: String) -> Result<String> {
+pub fn argon_password_hash(password: String) -> Result<String, PasswordHashError> {
     let salt = SaltString::generate(&mut OsRng);
     let hash_str = ARGON2
-        .hash_password(password.as_bytes(), &salt)
-        .map_err(|err| anyhow!(err))?
+        .hash_password(password.as_bytes(), &salt)?
         .to_string();
     Ok(hash_str)
 }
 
-pub fn argon_password_check(password: String, hash: String) -> Result<(), Error> {
-    let parsed_hash = PasswordHash::new(&hash).map_err(|err| anyhow!(err))?;
-    ARGON2
-        .verify_password(password.as_bytes(), &parsed_hash)
-        .map_err(|err| anyhow!(err))
+pub fn argon_password_check(password: String, hash: String) -> Result<(), PasswordHashError> {
+    let parsed_hash = PasswordHash::new(&hash)?;
+    ARGON2.verify_password(password.as_bytes(), &parsed_hash)?;
+    Ok(())
+}
+
+#[derive(Error, Debug)]
+#[error("password hash error: \"{0}\"")]
+pub struct PasswordHashError(PhError);
+
+impl From<PhError> for PasswordHashError {
+    fn from(e: PhError) -> Self {
+        PasswordHashError(e)
+    }
 }
