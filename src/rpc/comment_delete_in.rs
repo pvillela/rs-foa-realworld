@@ -1,4 +1,4 @@
-use anyhow::{anyhow, Result};
+use crate::common::AppError;
 
 pub struct CommentDeleteIn {
     pub slug: String,
@@ -6,9 +6,11 @@ pub struct CommentDeleteIn {
 }
 
 impl CommentDeleteIn {
-    pub fn validate(&self) -> Result<()> {
+    pub fn validate(&self) -> Result<(), AppError> {
         if self.slug == "" || self.id == 0 {
-            return Err(anyhow!("article slug or comment id is missing"));
+            return Err(AppError::ValidationFailed {
+                msg: "article slug or comment id is missing".to_owned(),
+            });
         }
         Ok(())
     }

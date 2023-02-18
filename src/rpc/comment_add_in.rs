@@ -1,5 +1,5 @@
+use crate::common::AppError;
 use crate::model::Comment;
-use anyhow::{anyhow, Result};
 
 pub struct CommentAddIn {
     pub slug: String,
@@ -11,9 +11,11 @@ pub struct CommentAddIn0 {
 }
 
 impl CommentAddIn {
-    pub fn validate(&self) -> Result<()> {
+    pub fn validate(&self) -> Result<(), AppError> {
         if self.slug == "" || self.comment.body == "" {
-            return Err(anyhow!("slug or body is missing"));
+            return Err(AppError::ValidationFailed {
+                msg: "slug or body is missing".to_owned(),
+            });
         }
         Ok(())
     }

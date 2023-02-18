@@ -1,5 +1,5 @@
 use crate::arch::crypto::argon_password_hash;
-use anyhow::Result;
+use crate::common::AppError;
 use chrono::{DateTime, Utc};
 
 pub struct User {
@@ -30,11 +30,11 @@ pub struct UserPatch {
 }
 
 impl User {
-    pub fn create(username: String, email: String, password: String) -> Result<User> {
+    pub fn create(username: String, email: String, password: String) -> Result<User, AppError> {
         let password_hash = argon_password_hash(password)?;
         Ok(User {
             id: 0,
-            username: username,
+            username,
             email: email.to_lowercase(),
             password_hash,
             bio: String::from(""),
@@ -44,7 +44,7 @@ impl User {
         })
     }
 
-    pub fn update(&mut self, v: UserPatch) -> Result<()> {
+    pub fn update(&mut self, v: UserPatch) -> Result<(), AppError> {
         if let Some(username) = v.username {
             self.username = username;
         }

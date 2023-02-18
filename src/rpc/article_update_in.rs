@@ -1,4 +1,4 @@
-use anyhow::{anyhow, Result};
+use crate::common::AppError;
 
 pub struct ArticleUpdateIn {
     pub article: ArticleUpdateIn0,
@@ -12,9 +12,11 @@ pub struct ArticleUpdateIn0 {
 }
 
 impl ArticleUpdateIn {
-    pub fn validate(&self) -> Result<()> {
+    pub fn validate(&self) -> Result<(), AppError> {
         if self.article.slug == "" {
-            return Err(anyhow!("article slug missing for Update operation"));
+            return Err(AppError::ValidationFailed {
+                msg: "article slug missing for Update operation".to_owned(),
+            });
         }
         Ok(())
     }

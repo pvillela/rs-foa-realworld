@@ -1,11 +1,15 @@
+use crate::common::AppError;
 use crate::model::ArticlePlus;
-use anyhow::Result;
 
-pub type ArticleCheckOwnerBfT = fn(article: ArticlePlus, username: String) -> Result<()>;
+pub type ArticleCheckOwnerBfT = Box<dyn Fn(ArticlePlus, String) -> Result<(), AppError>>;
 
-fn article_check_owner_bf(article: ArticlePlus, username: String) -> Result<()> {
+pub fn article_check_owner_bf(article: ArticlePlus, username: String) -> Result<(), AppError> {
     if article.author.username != username {
-        return err_unauthorized_user.make(nil, err_msg_unauthorized_user, username);
+        return Err(AppError::UnauthorizedUser { username });
     }
-    return nil;
+    Ok(())
+}
+
+fn _type_check() -> ArticleCheckOwnerBfT {
+    Box::new(article_check_owner_bf)
 }

@@ -1,3 +1,6 @@
+use std::error::Error;
+
+use crate::arch::crypto::PasswordHashError;
 use thiserror::Error;
 
 #[derive(Error, Debug)]
@@ -68,4 +71,13 @@ pub enum AppError {
 
     #[error("validation failed: \"{msg}\"")]
     ValidationFailed { msg: String },
+
+    #[error("library error due to: \"{cause}\"")]
+    LibraryError { cause: Box<dyn Error> },
+}
+
+impl From<PasswordHashError> for AppError {
+    fn from(e: PasswordHashError) -> Self {
+        Self::LibraryError { cause: Box::new(e) }
+    }
 }

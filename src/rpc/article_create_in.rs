@@ -1,5 +1,5 @@
+use crate::common::AppError;
 use crate::model::{Article, User};
-use anyhow::{anyhow, Error, Result};
 
 pub struct ArticleCreateIn {
     pub article: ArticleCreateIn0,
@@ -13,9 +13,11 @@ pub struct ArticleCreateIn0 {
 }
 
 impl ArticleCreateIn {
-    pub fn validate(&self) -> Result<(), Error> {
+    pub fn validate(&self) -> Result<(), AppError> {
         if self.article.title == "" || self.article.description == "" || self.article.body == "" {
-            return Err(anyhow!("article has missing fields for Create operation"));
+            return Err(AppError::ValidationFailed {
+                msg: "article has missing fields for Create operation".to_owned(),
+            });
         }
         Ok(())
     }
