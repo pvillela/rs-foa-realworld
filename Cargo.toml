@@ -6,14 +6,15 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+foa = { path = "../rs-foa" }
 anyhow = "1.0"
 arc-swap = "1.6"
 arcstr = "1.1"
-argon2 = { version = "0.4", features = ["std"] }
+argon2 = { version = "0.5", features = ["std"] }
 chrono = "0.4"
-jsonwebtoken = "8"
+jsonwebtoken = "9"
 once_cell = "1.17"
 rand_core = { version = "0.6", features = ["std"] }
-serde = {version = "1.0", features = ["derive"] }
+serde = { version = "1.0", features = ["derive"] }
 slug = "0.1.4"
 thiserror = "1.0"

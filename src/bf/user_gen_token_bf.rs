@@ -1,54 +1,42 @@
-pub type UserGenTokenBfT = func(user model.User) (string, error)
+use crate::arch::di::CfgDeps;
+use crate::common::AppError;
+use crate::model::User;
+use chrono::{Duration, Utc};
+use jsonwebtoken::{encode, EncodingKey, Header};
+use serde::Serialize;
 
-pub type UserGenTokenEcdsaBfCfgSrc = func() (
-	private_key ecdsa.PrivateKey,
-	token_time_to_live time.Duration,
-)
-
-pub fn user_gen_token_ecdsa_bf_c(
-cfg_src: UserGenTokenEcdsaBfCfgSrc,
-) -> UserGenTokenBfT {
-	private_key, token_time_to_live := cfg_src()
-	return user_gen_token_bf_c[ecdsa.private_key](private_key, token_time_to_live, jwt.signing_method_e_s256)
-}
+pub type UserGenTokenBfT = fn(User) -> Result<String, AppError>;
 
 pub struct UserGenTokenHmacBfCfgInfo {
-pub  key: &{814 <nil> byte},
-pub  token_time_to_live: &{time Duration},
+    key: &'static [u8],
+    token_time_to_live: Duration,
 }
 
-
-pub type UserGenTokenHmacBfCfgSrc = func() UserGenTokenHmacBfCfgInfo
-
-pub fn user_gen_token_hmac_bf_c(
-cfg_src: UserGenTokenHmacBfCfgSrc,
-) -> UserGenTokenBfT {
-	info := cfg_src()
-	return user_gen_token_bf_c[[]byte](info.key, info.token_time_to_live, jwt.signing_method_h_s256)
+#[derive(Debug, Serialize)]
+struct Claims {
+    iss: String,
+    sub: String,
+    exp: i64,
 }
 
-fn user_gen_token_bf_c(
-key: K,
-token_time_to_live: &{time Duration},
-signing_method: &{jwt SigningMethod},
-) -> UserGenTokenBfT {
-	return func(user model.User) (string, error) {
-		if user.username == "" {
-			return "", errx.new_errx(nil, "can't generate token for empty user")
-		}
+pub fn user_gen_token_hmac_bf(user: User) -> Result<String, AppError> {
+    if user.username == "" {
+        return Err(AppError::UsernameEmpty);
+    }
 
-		claims := jwt.registered_claims{
-			subject:	user.username,
-			expires_at:	jwt.new_numeric_date(time.now().add(token_time_to_live)),
-			issuer:		"real-world-demo-backend",
-		}
+    let cfg = USER_GEN_TOKEN_BF_CFG.get_cfg();
+    let claims = Claims {
+        iss: "rs-foa-realworld".to_owned(),
+        sub: user.username,
+        exp: Utc::now().timestamp() + cfg.token_time_to_live.num_seconds(),
+    };
 
-		jws, err := jwt.new_with_claims(signing_method, &claims).signed_string(key)
-		if err != nil {
-			return "", errx.errx_of(err)
-		}
-
-		return jws, nil
-	}
+    encode(
+        &Header::default(), // HS256
+        &claims,
+        &EncodingKey::from_secret(cfg.key),
+    )
+    .map_err(|err| err.into())
 }
 
+pub static USER_GEN_TOKEN_BF_CFG: CfgDeps<UserGenTokenHmacBfCfgInfo, ()> = CfgDeps::new();

@@ -48,6 +48,9 @@ pub enum AppError {
     #[error("user with name \"{0}\" already exists")]
     UsernameDuplicate(String),
 
+    #[error("username empty")]
+    UsernameEmpty,
+
     #[error("user not found for username \"{0}\"")]
     UsernameNotFound(String),
 
@@ -78,6 +81,12 @@ pub enum AppError {
 
 impl From<PasswordHashError> for AppError {
     fn from(e: PasswordHashError) -> Self {
+        Self::LibraryError { cause: Box::new(e) }
+    }
+}
+
+impl From<jsonwebtoken::errors::Error> for AppError {
+    fn from(e: jsonwebtoken::errors::Error) -> Self {
         Self::LibraryError { cause: Box::new(e) }
     }
 }
