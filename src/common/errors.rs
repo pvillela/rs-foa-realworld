@@ -1,9 +1,10 @@
-use std::error::Error;
-
-use crate::arch::crypto::PasswordHashError;
+use crate::arch::{crypto::PasswordHashError, tx::DbErr};
+use axum::response::{IntoResponse, Response};
+use serde::Serialize;
+use std::{error::Error as StdError, fmt::Debug};
 use thiserror::Error;
 
-#[derive(Error, Debug)]
+#[derive(Error, Debug, Serialize)]
 #[non_exhaustive]
 pub enum AppError {
     #[error("duplicate article slug \"{0}\"")]
@@ -75,18 +76,46 @@ pub enum AppError {
     #[error("validation failed: \"{msg}\"")]
     ValidationFailed { msg: String },
 
-    #[error("library error due to: \"{cause}\"")]
-    LibraryError { cause: Box<dyn Error> },
+    #[error("library error due to: [{cause}]")]
+    LibraryError { cause: String },
+}
+
+impl AppError {
+    /// The `cause`'s `to_string()` value is wrapped in an [`AppError::LibraryError`]
+    fn with_string_cause<T: StdError>(cause: &T) -> AppError {
+        Self::LibraryError {
+            cause: cause.to_string(),
+        }
+    }
+
+    /// The `cause`'s JSON string value is wrapped in an [`AppError::LibraryError`]
+    fn with_json_string_cause<T: Serialize + StdError>(cause: &T) -> AppError {
+        Self::LibraryError {
+            cause: serde_json::to_string(cause).unwrap_or(cause.to_string()),
+        }
+    }
 }
 
 impl From<PasswordHashError> for AppError {
     fn from(e: PasswordHashError) -> Self {
-        Self::LibraryError { cause: Box::new(e) }
+        Self::with_string_cause(&e)
     }
 }
 
 impl From<jsonwebtoken::errors::Error> for AppError {
     fn from(e: jsonwebtoken::errors::Error) -> Self {
-        Self::LibraryError { cause: Box::new(e) }
+        Self::with_string_cause(&e)
+    }
+}
+
+impl From<DbErr> for AppError {
+    fn from(e: DbErr) -> Self {
+        Self::with_string_cause(&e)
+    }
+}
+
+impl IntoResponse for AppError {
+    fn into_response(self) -> Response {
+        axum::Json(self).into_response()
     }
 }

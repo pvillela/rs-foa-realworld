@@ -9,18 +9,14 @@ use argon2::{
 use once_cell::sync::Lazy;
 use thiserror::Error;
 
-const IS_DEV: bool = true;
+const IS_DEV: bool = if cfg!(debug_assertions) { true } else { false };
 
 static ARGON2: Lazy<Argon2> = Lazy::new(|| {
     let dev_params = Params::new(10 * 1024, 1, 1, Some(Params::DEFAULT_OUTPUT_LEN))
         .expect("Error defining Argon2 params for dev");
-    // salt_length:	16,
-    // key_length:	32,
 
     let prod_params = Params::new(1 * 1024 * 1024, 1, 3, Some(Params::DEFAULT_OUTPUT_LEN))
         .expect("Error defining Argon2 params for prod");
-    // 	salt_length:	8,
-    // 	key_length:	8,
 
     let argon_params = if IS_DEV { dev_params } else { prod_params };
 
