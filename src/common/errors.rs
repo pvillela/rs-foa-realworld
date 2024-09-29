@@ -1,12 +1,12 @@
 use crate::arch::{crypto::PasswordHashError, tx::DbErr};
 use axum::response::{IntoResponse, Response};
-use serde::Serialize;
+use serde::{ser::SerializeStructVariant, Serialize};
 use std::{error::Error as StdError, fmt::Debug};
 use thiserror::Error;
 
 #[derive(Error, Debug, Serialize)]
 #[non_exhaustive]
-pub enum AppError {
+pub enum CoreAppError {
     #[error("duplicate article slug \"{0}\"")]
     DuplicateArticleSlug(String),
 
@@ -75,42 +75,86 @@ pub enum AppError {
 
     #[error("validation failed: \"{msg}\"")]
     ValidationFailed { msg: String },
+}
 
-    #[error("library error due to: [{cause}]")]
-    LibraryError { cause: String },
+#[derive(Error, Debug)]
+pub enum AppError {
+    #[error("{0}")]
+    Core(CoreAppError),
+
+    #[error("library error due to: [{0}]")]
+    LibraryErrorStr(String),
+
+    #[error("library error due to: [{source}]")]
+    LibraryError { source: Box<dyn SerError> },
 }
 
 impl AppError {
-    /// The `cause`'s `to_string()` value is wrapped in an [`AppError::LibraryError`]
-    fn with_string_cause<T: StdError>(cause: &T) -> AppError {
-        Self::LibraryError {
-            cause: cause.to_string(),
-        }
+    /// The `cause`'s `to_string()` value is wrapped in an [`AppError::LibraryErrorStr`]
+    fn library_error_str<T: StdError>(cause: &T) -> AppError {
+        Self::LibraryErrorStr(cause.to_string())
     }
+}
 
-    /// The `cause`'s JSON string value is wrapped in an [`AppError::LibraryError`]
-    fn with_json_string_cause<T: Serialize + StdError>(cause: &T) -> AppError {
-        Self::LibraryError {
-            cause: serde_json::to_string(cause).unwrap_or(cause.to_string()),
+pub trait SerError: StdError {
+    fn json_string(&self) -> String;
+}
+
+impl StdError for Box<dyn SerError> {}
+
+impl<T> SerError for T
+where
+    T: StdError + Serialize,
+{
+    fn json_string(&self) -> String {
+        serde_json::to_string(self).unwrap_or(self.to_string())
+    }
+}
+
+impl Serialize for Box<dyn SerError> {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        serializer.serialize_str(&self.json_string())
+    }
+}
+
+impl Serialize for AppError {
+    fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            AppError::Core(core_err) => core_err.serialize(serializer),
+            AppError::LibraryErrorStr(s) => {
+                serializer.serialize_newtype_variant("AppError", 1, "LibraryError", s)
+            }
+            AppError::LibraryError { source } => {
+                let mut state =
+                    serializer.serialize_struct_variant("AppError", 2, "LibraryError", 1)?;
+                state.serialize_field("source", source)?;
+                state.end()
+            }
         }
     }
 }
 
 impl From<PasswordHashError> for AppError {
     fn from(e: PasswordHashError) -> Self {
-        Self::with_string_cause(&e)
+        Self::library_error_str(&e)
     }
 }
 
 impl From<jsonwebtoken::errors::Error> for AppError {
     fn from(e: jsonwebtoken::errors::Error) -> Self {
-        Self::with_string_cause(&e)
+        Self::library_error_str(&e)
     }
 }
 
 impl From<DbErr> for AppError {
     fn from(e: DbErr) -> Self {
-        Self::with_string_cause(&e)
+        Self::library_error_str(&e)
     }
 }
 

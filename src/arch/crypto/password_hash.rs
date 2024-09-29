@@ -9,6 +9,8 @@ use argon2::{
 use once_cell::sync::Lazy;
 use thiserror::Error;
 
+// TODO: change to Algorithm::Argon2id
+
 const IS_DEV: bool = if cfg!(debug_assertions) { true } else { false };
 
 static ARGON2: Lazy<Argon2> = Lazy::new(|| {

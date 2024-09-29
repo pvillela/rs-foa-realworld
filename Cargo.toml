@@ -6,7 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-foa = { path = "../rs-foa" }
+foa = { path = "../rs-foa/foa" }
 anyhow = "1.0"
 arc-swap = "1.6"
 arcstr = "1.1"
@@ -22,3 +22,6 @@ thiserror = "1.0"
 tokio = { version = "1", features = ["full"] }
 futures = "0.3"
 axum = "0.7"
+
+[dev-dependencies]
+dockertest = "0.4"
